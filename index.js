@@ -53,7 +53,7 @@ inquirer
         },
         {
             type: "input",
-            message: colors.magenta("Provde a short description explaining the what, why, and how of your project"),
+            message: colors.magenta("Provide a short description explaining the what, why, and how of your project"),
             name: "description",
         },
         {
@@ -65,6 +65,11 @@ inquirer
             type: "input",
             message: colors.magenta("Please provide instructions and examples for use"),
             name: "usage",  
+        },
+        {
+            type: "input",
+            message: colors.magenta("Please provide test instructions"),
+            name: "test",  
         },
         {
             type: "input",
@@ -109,7 +114,50 @@ inquirer
         }
     ])
     .then((response) => {
-        fs.appendFile(`./output/${response.title}.md`,`# ${response.title}\n\n`+generateLicenseBadge(response.license)+`\n\n## Description\n\n${response.description}\n\n## Table of Contents\n\n- [Installation](#installation)\n- [Usage](#usage)\n- [Collaborators](#collaborators)\n- [Questions](#questions)\n- [License](#license)\n\n## Installation\n\n${response.installation}\n\n## Usage\n\n${response.usage}\n\n## Collaborators\n\n${response.collaborators}\n\n## Questions\n\nGithub profile: (https://github.com/${response.github})\n\nPlease direct any questions to ${response.email}\n\n## License\n\n${response.license}`,
+        fs.appendFile(`./output/${response.title}.md`,`# ${response.title}
+` + generateLicenseBadge(response.license) + `
+
+## Description
+
+${response.description}
+
+## Table of Contents
+
+[Installation](#installation)
+
+[Usage](#usage)
+
+[Collaborators](#collaborators)
+
+[Questions](#questions)
+
+[License](#license)
+
+## Installation
+
+${response.installation}
+
+## Usage
+
+${response.usage}
+
+## Test
+
+${response.test}
+
+## Collaborators
+
+${response.collaborators}
+
+## Questions
+
+Github profile: (https://github.com/${response.github})
+
+Please direct any questions to ${response.email}
+
+## License
+
+${response.license}`,
         (err) => {
             err ? console.error(err) : console.log('README created!');
         })
